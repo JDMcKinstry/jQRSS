@@ -18,7 +18,10 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
 
 ## Example Use of Callback
 ```js
-$.jQRSS('http://www.fake-feed.com/myRSS/', { count: 8, output: 'xml' }, function(feed, entries) { $('body').append(entries); })
+$.jQRSS('http://www.fake-feed.com/myRSS/', { count: 8, output: 'xml' }, 
+	function(feed, entries) {
+		$('body').append(entries);
+	});
 ```
 
 ### Overwritable Methods
