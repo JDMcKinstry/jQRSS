@@ -5,7 +5,7 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
 
 #### Simply include it anywhere after your call to jQuery
 
-	<script src="http://rawgit.com/JDMcKinstry/jQRSS/master/jQRSS.js"></script>
+	<script src="//rawgit.com/JDMcKinstry/jQRSS/master/jQRSS.js"></script>
 
 
 #### And then use as simple as:
