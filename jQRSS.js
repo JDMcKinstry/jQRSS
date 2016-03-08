@@ -1,4 +1,4 @@
-(function($) {	//	https://developers.google.com/feed/v1/jsondevguide#using_json
+(function($) {	//	see also: https://developers.google.com/feed/v1/jsondevguide#using_json
 	if (!$.jQRSS) {
 		$.extend({
 			jQRSS: function() {
@@ -32,7 +32,7 @@
 				//	"... Google is less likely to mistake requests for abuse when they include userip. ..."
 				if (props.userip != null) ajaxData.userip = props.userip;
 				//	language support
-				if (props.language != null) ajaxData.hl = props.language;
+				if (props.language) ajaxData.hl = props.language;
 				
 				var ajaxOpts = {
 						ajaxID: ajaxID,
