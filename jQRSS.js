@@ -35,13 +35,12 @@
 				var ajaxOpts = {
 						ajaxID: ajaxID,
 						callback: cb,
-						dataType: props.output.match(/json/ig) ? "json" : "xml",
+						dataType: "json",
 						data: ajaxData,
-						gURL: gURL,
 						type: "GET",
 						url: gURL,
 						xhrFields: { withCredentials: true },
-						beforeSend: props['beforeSend'] ? props.beforeSend : function (jqXHR, settings) { 
+						beforeSend: props['beforeSend'] ? props.beforeSend : function (jqXHR, settings) {
 							if (props.doLog) {
 								try {
 									if (window['console']) {
@@ -51,6 +50,7 @@
 									}
 								} catch(err) {  }
 							}
+							console.log(settings.url)
 						},
 						error: props['error'] ? props.error : function (jqXHR, textStatus, errorThrown) {
 							if (props.doLog) {
@@ -64,20 +64,30 @@
 								throw new Error("ERROR", textStatus, errorThrown );
 							}
 						},
-						success: props['success'] ? props.success : function (data, textStatus, jqXHR) {  
-							var f = data['responseData'] ? data.responseData['feed'] ? data.responseData.feed : null : null,
-								e = data['responseData'] ? data.responseData['feed'] ? data.responseData.feed['entries'] ? data.responseData.feed.entries : null : null : null
+						success: props['success'] ? props.success : function (data, textStatus, jqXHR) {
+							var feed, entries;
+							if (props.output.match('json')) {
+								feed = data['responseData'] && data.responseData['feed'] ? data.responseData.feed : null;
+								entries = feed && feed['entries'] ? feed.entries : null;
+								
+							}
+							else {
+								feed = data['responseData'] && data.responseData['xmlString'] ? $($(data.responseData['xmlString']).get(2)) : null;
+								entries = feed && feed.find('channel > item').length ? feed.find('channel > item') : null;
+								
+							}
+							
 							if (props.doLog) {
 								try {
 									if (window['console']) {
 										console.log(new Array(30).join('-'), "SUCCESS", new Array(30).join('-'));
-										console.log({ data: data, textStatus: textStatus, jqXHR: jqXHR, feed: f, entries: e });
+										console.log({ data: data, textStatus: textStatus, jqXHR: jqXHR, feed: feed, entries: entries });
 										console.log(new Array(68).join('-'));
 									}
 								} catch(err) {  }
 							}
 							
-							if (cb) return cb.call(this, data['responseData'] ? data.responseData['feed'] ? data.responseData.feed : data.responseData : null);
+							if (cb) return cb.call(this, feed ? feed : data, entries ? entries : null);
 							else return { data: data, textStatus: textStatus, jqXHR: jqXHR, feed: f, entries: e };
 						}
 					},
@@ -106,7 +116,7 @@
 		$.jQRSS.ajax = [];	//	maintains running log of ajax calls for rss feeds
 		$.jQRSS.gURLArgs = {
 			callback: "?",
-			gURL: "http://ajax.googleapis.com/ajax/services/feed/",
+			gURL: "//ajax.googleapis.com/ajax/services/feed/",
 			scoring: "h",
 			type: "load",
 			ver: "1.0"
