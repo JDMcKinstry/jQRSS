@@ -33,40 +33,50 @@
 				if (props.userip != null) ajaxData.userip = props.userip;
 				
 				var ajaxOpts = {
-						url: gURL,
+						ajaxID: ajaxID,
+						callback: cb,
 						dataType: props.output.match(/json/ig) ? "json" : "xml",
 						data: ajaxData,
+						gURL: gURL,
 						type: "GET",
+						url: gURL,
 						xhrFields: { withCredentials: true },
 						beforeSend: props['beforeSend'] ? props.beforeSend : function (jqXHR, settings) { 
-							try {
-								if (window['console']) {
-									console.log(new Array(30).join('-'), "REQUESTING RSS XML", new Array(30).join('-')); 
-									console.log({ ajaxData: ajaxData, ajaxRequest: settings.url, jqXHR: jqXHR, settings: settings, options: props }); 
-									console.log(new Array(80).join('-'));
-								}
-							} catch(err) {  }
+							if (props.doLog) {
+								try {
+									if (window['console']) {
+										console.log(new Array(30).join('-'), "REQUESTING RSS XML", new Array(30).join('-')); 
+										console.log({ ajaxData: ajaxData, ajaxRequest: settings.url, jqXHR: jqXHR, settings: settings, options: props }); 
+										console.log(new Array(80).join('-'));
+										console.log('settings.ajaxID', settings.ajaxID)
+									}
+								} catch(err) {  }
+							}
 						},
 						error: props['error'] ? props.error : function (jqXHR, textStatus, errorThrown) {
-							try {
-								if (window['console']) {
-									console.log(new Array(27).join('-'), "ERROR REQUESTING RSS XML", new Array(27).join('-')); 
-									console.log({ jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown }); 
-									console.log(new Array(80).join('-'));
-								}
-							} catch(err) {  }
-							throw new Error("ERROR", textStatus, errorThrown );
+							if (props.doLog) {
+								try {
+									if (window['console']) {
+										console.log(new Array(27).join('-'), "ERROR REQUESTING RSS XML", new Array(27).join('-')); 
+										console.log({ jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown }); 
+										console.log(new Array(80).join('-'));
+									}
+								} catch(err) {  }
+								throw new Error("ERROR", textStatus, errorThrown );
+							}
 						},
 						success: props['success'] ? props.success : function (data, textStatus, jqXHR) {  
 							var f = data['responseData'] ? data.responseData['feed'] ? data.responseData.feed : null : null,
 								e = data['responseData'] ? data.responseData['feed'] ? data.responseData.feed['entries'] ? data.responseData.feed.entries : null : null : null
-							try {
-								if (window['console']) {
-									console.log(new Array(30).join('-'), "SUCCESS", new Array(30).join('-'));
-									console.log({ data: data, textStatus: textStatus, jqXHR: jqXHR, feed: f, entries: e });
-									console.log(new Array(68).join('-'));
-								}
-							} catch(err) {  }
+							if (props.doLog) {
+								try {
+									if (window['console']) {
+										console.log(new Array(30).join('-'), "SUCCESS", new Array(30).join('-'));
+										console.log({ data: data, textStatus: textStatus, jqXHR: jqXHR, feed: f, entries: e });
+										console.log(new Array(68).join('-'));
+									}
+								} catch(err) {  }
+							}
 							
 							if (cb) return cb.call(this, data['responseData'] ? data.responseData['feed'] ? data.responseData.feed : data.responseData : null);
 							else return { data: data, textStatus: textStatus, jqXHR: jqXHR, feed: f, entries: e };
@@ -104,6 +114,7 @@
 		};
         $.jQRSS.props = {
             count: "10", // max 100, -1 defaults to 100
+			doLog: true,
             historical: false,
             output: "json", // json, json_xml, xml
             rss: null,
