@@ -31,6 +31,8 @@
 				if (props.historical) ajaxData.scoring = gURLArgs.scoring;
 				//	"... Google is less likely to mistake requests for abuse when they include userip. ..."
 				if (props.userip != null) ajaxData.userip = props.userip;
+				//	language support
+				if (props.language != null) ajaxData.hl = props.language;
 				
 				var ajaxOpts = {
 						ajaxID: ajaxID,
