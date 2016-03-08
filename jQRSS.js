@@ -48,7 +48,6 @@
 										console.log(new Array(30).join('-'), "REQUESTING RSS XML", new Array(30).join('-')); 
 										console.log({ ajaxData: ajaxData, ajaxRequest: settings.url, jqXHR: jqXHR, settings: settings, options: props }); 
 										console.log(new Array(80).join('-'));
-										console.log('settings.ajaxID', settings.ajaxID)
 									}
 								} catch(err) {  }
 							}
