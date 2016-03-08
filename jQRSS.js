@@ -132,8 +132,3 @@
         };
 	}
 })(jQuery);
-
-	$.jQRSS('http://www.army.mil/rss/233/', { count: 8, doLog: false, output: 'json' }, function (feed, entries) { console.log('feed, entries', [feed, entries]); });
-setTimeout(function() {
-	$.jQRSS('http://www.army.mil/rss/233/', { count: 8, doLog: false, output: 'xml' }, function (feed, entries) { console.log('feed, entries', [feed, entries]); });
-}, 1000)
