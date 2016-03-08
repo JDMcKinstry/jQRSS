@@ -5,7 +5,7 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
 
 #### Simply include it anywhere after your call to jQuery and then use as simple as:
 
-	$.jQRSS('http://www.yourRSSurl.com/', { options }, function (newsFeed) { /* do work! */ })
+	$.jQRSS('http://www.yourRSSurl.com/', { options }, function (newsFeed, feedEntries) { /* do work! */ })
 
 ### Options:
 
@@ -15,7 +15,11 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
  - **rss**: String url to path of RSS Feed. [*Can be passed as simple string parameter instead*]
  - **userip**: Setting this to the end user's ip will help Google know this is not a bot making unfeathered calls, and reduce the chance of a erroneous return.
  - ***doLog***: Boolean whether or not to send information to the `console.log`
- 
+
+## Example Use of Callback
+```js
+$.jQRSS('http://www.fake-feed.com/myRSS/', { count: 8, output: 'xml' }, function(feed, entries) { $('body').append(entries); })
+
 ### Overwritable Methods
 #### In general, the following methods should not be changed, but if you'd like to change how the Plugin works upon each ajax call, here you go!
 
