@@ -69,12 +69,10 @@
 							if (props.output.match('json')) {
 								feed = data['responseData'] && data.responseData['feed'] ? data.responseData.feed : null;
 								entries = feed && feed['entries'] ? feed.entries : null;
-								
 							}
 							else {
-								feed = data['responseData'] && data.responseData['xmlString'] ? $($(data.responseData['xmlString']).get(2)) : null;
+								feed = data['responseData'] && data.responseData['xmlString'] ? $($.parseXML(data.responseData['xmlString'])) : null;
 								entries = feed && feed.find('channel > item').length ? feed.find('channel > item') : null;
-								
 							}
 							
 							if (props.doLog) {
@@ -134,3 +132,8 @@
         };
 	}
 })(jQuery);
+
+	$.jQRSS('http://www.army.mil/rss/233/', { count: 8, doLog: false, output: 'json' }, function (feed, entries) { console.log('feed, entries', [feed, entries]); });
+setTimeout(function() {
+	$.jQRSS('http://www.army.mil/rss/233/', { count: 8, doLog: false, output: 'xml' }, function (feed, entries) { console.log('feed, entries', [feed, entries]); });
+}, 1000)
