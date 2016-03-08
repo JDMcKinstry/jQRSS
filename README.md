@@ -14,6 +14,7 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
  - **output**: "*json* || *json_xm*l || *xml*" Defaults to "json"
  - **rss**: String url to path of RSS Feed. [*Can be passed as simple string parameter instead*]
  - **userip**: Setting this to the end user's ip will help Google know this is not a bot making unfeathered calls, and reduce the chance of a erroneous return.
+ - ***doLog***: Boolean whether or not to send information to the `console.log`
  
 ### Overwritable Methods
 #### In general, the following methods should not be changed, but if you'd like to change how the Plugin works upon each ajax call, here you go!
@@ -24,3 +25,24 @@ This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and eas
 
 ## Example jsFiddle Play
 http://jsfiddle.net/SpYk3/Pp44S/
+
+##Full Example Options Use
+
+	$.jQRSS({
+		count: 10,
+		historical: false,
+		output: 'json',
+		rss: 'http://www.fake-feed.com/myRSS/',
+		userip: '<? $_USERIP; ?>',
+		beforeSend: function (jqXHR, settings) {
+			alert(settings.ajaxID);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(errorThrown);
+		},
+		success: function(data, textStatus, jqXHR) {
+			console.log(data.responseData['feed']);
+		}
+	});	//	no need for callback since your already manipulating the success method, thus a cb would never be called anyway
+
+
