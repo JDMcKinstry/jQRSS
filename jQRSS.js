@@ -132,5 +132,7 @@
 			error: undefined,
 			success: undefined
         };
+		//	temp fix to local testing
+		if (location.toString().match(/file\:\/\//)) $.jQRSS.gURLArgs.gURL = "http:" + $.jQRSS.gURLArgs.gURL
 	}
 })(jQuery);
