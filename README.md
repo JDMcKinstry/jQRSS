@@ -3,6 +3,10 @@
 
 This simple and easy to use jQuery Plugin makes calling RSS Feeds simple and easy and provides plenty of feedback in the developer console *if* available! It maintains a list of Ajax calls for RSS feeds. It also includings easy to override options, in case you want to make it a little more "your own.
 
+## Quick Links
+	[Raw JS][1]
+	[Raw JS Minified][2]
+
 #### Simply include it anywhere after your call to jQuery
 
 	<script src="//rawgit.com/JDMcKinstry/jQRSS/master/jQRSS.js"></script>
@@ -60,3 +64,5 @@ http://jsfiddle.net/SpYk3/Pp44S/
 	});	//	no need for callback since your already manipulating the success method, thus a cb would never be called anyway
 
 
+[1] https://rawgit.com/JDMcKinstry/jQRSS/master/jQRSS.js
+[2] https://rawgit.com/JDMcKinstry/jQRSS/master/jQRSS.min.js
