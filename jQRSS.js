@@ -56,6 +56,9 @@
 			, params: paramsDefault
 		}
 	
+	//	temp fix to local testing
+	if (location.toString().match(/file\:\/\//)) paramsDefault.gURL = "http:" + paramsDefault.gURL
+	
 	/**	jQRSS()
 	 *	@description	Main method to be used for creating jQuery Plugin
 	 *	@see			https://github.com/JDMcKinstry/jQRSS
