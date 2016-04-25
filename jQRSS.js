@@ -1,4 +1,4 @@
-(function($, $fn) {	//	see also: https://developers.google.com/feed/v1/jsondevguide#using_json
+;;(function($, $fn) {	//	see also: https://developers.google.com/feed/v1/jsondevguide#using_json
 	if ($.jQRSS) return $.jQRSS;
 		
 	/**	b64EncodeUnicode(str)
